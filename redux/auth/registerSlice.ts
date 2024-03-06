@@ -5,13 +5,12 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-  errorMessage: "",
+  message: "",
 };
 
 export const signupUser = createAsyncThunk(
   "auth/signupUser",
   async (userData: userData) => {
-    console.log("userDataEnter", userData);
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -39,21 +38,20 @@ const signupSlice = createSlice({
         state.isLoading = true;
         state.isSuccess = false;
         state.isError = false;
-        state.errorMessage = "";
+        state.message = "";
       })
-      .addCase(signupUser.fulfilled, (state) => {
+      .addCase(signupUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
         state.isError = false;
-        state.errorMessage = "";
+        state.message = action.payload.message;
       })
-      .addCase(signupUser.rejected, (state, action) => {
+      .addCase(signupUser.rejected, (state, action: any) => {
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
-        // state.errorMessage = action.payload
-        //   ? action.payload.message
-        //   : "Signup failed";
+        console.log("actuon rejec", action);
+        state.message = action.error.message;
       });
   },
 });

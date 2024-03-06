@@ -1,16 +1,37 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { toast } from "../../utils/toastify";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log(email, password);
-    setEmail("");
-    setPassword("");
+    try {
+      setLoading(true);
+      const responce = await signIn("credentials", {
+        email: email,
+        password: password,
+        redirect: false,
+      });
+      if (responce?.error) {
+        return toast.error("Invalid Credentials");
+      }
+      toast.success("Login Successfull");
+      router.push("/");
+      console.log("login", responce);
+    } catch (error) {
+      toast.error("Error While Login");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,7 +102,7 @@ export default function Login() {
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm"
               >
-                Login
+                {loading ? "Loading..." : "Login"}
               </button>
             </div>
           </form>

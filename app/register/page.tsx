@@ -4,15 +4,18 @@ import { userData } from "@/redux/types";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "../../utils/toastify";
+import { useRouter } from "next/navigation";
 
 export default function Register() {
   const dispatch: any = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoading, isSuccess, isError, errorMessage } = useSelector(
+  const { isLoading, isSuccess, isError, message } = useSelector(
     (state: any) => state.signup
   );
+  const router = useRouter();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -22,9 +25,27 @@ export default function Register() {
       password: password,
     };
     dispatch(signupUser(userData));
-    setName("");
-    setEmail("");
-    setPassword("");
+    if (isSuccess) {
+      if (message == "User Already exists") {
+        toast.error(message);
+      }
+      if (message == "User Created Successfully") {
+        toast.success(message);
+        setName("");
+        setEmail("");
+        setPassword("");
+        if (!isLoading) {
+          router.push("/login");
+        }
+      }
+      if (message == "Error while adding user") {
+        toast.error(message);
+      }
+    }
+    if (isError) {
+      toast.error(message);
+      return;
+    }
   };
 
   return (
