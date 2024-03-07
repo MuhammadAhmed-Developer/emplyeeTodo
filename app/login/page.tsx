@@ -9,7 +9,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
   const router = useRouter();
 
   const handleSubmit = async (e: any) => {
@@ -25,7 +24,7 @@ export default function Login() {
         return toast.error("Invalid Credentials");
       }
       toast.success("Login Successfull");
-      router.push("/");
+      router.push("/youremployees");
     } catch (error) {
       toast.error("Error While Login");
     } finally {

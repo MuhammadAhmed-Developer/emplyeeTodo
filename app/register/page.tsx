@@ -23,34 +23,28 @@ export default function Register() {
     redirect("/");
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const userData: userData = {
       name: name,
       email: email,
       password: password,
     };
-    dispatch(signupUser(userData));
-    if (isSuccess) {
-      if (message == "User Already exists") {
-        toast.error(message);
-      }
-      if (message == "User Created Successfully") {
-        toast.success(message);
-        setName("");
-        setEmail("");
-        setPassword("");
-        if (!isLoading) {
-          router.push("/login");
-        }
-      }
-      if (message == "Error while adding user") {
-        toast.error(message);
-      }
+    const responce = await dispatch(signupUser(userData));
+
+    if (responce?.payload?.message == "User Already exists") {
+      toast.error("User Already exists");
     }
-    if (isError) {
-      toast.error(message);
-      return;
+    if (responce?.payload?.message == "User Created Successfully") {
+      toast.success("User Created Successfully");
+      router.push("/login");
+      setName("");
+      setEmail("");
+      setPassword("");
+
+      if (responce?.payload?.message == "Error while adding user") {
+        toast.error("Error while adding user");
+      }
     }
   };
 
