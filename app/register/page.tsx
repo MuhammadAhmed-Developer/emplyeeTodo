@@ -5,17 +5,23 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "../../utils/toastify";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Register() {
   const dispatch: any = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { status } = useSession();
   const { isLoading, isSuccess, isError, message } = useSelector(
     (state: any) => state.signup
   );
   const router = useRouter();
+
+  if (status == "authenticated") {
+    redirect("/");
+  }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

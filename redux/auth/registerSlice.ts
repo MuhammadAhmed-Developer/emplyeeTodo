@@ -50,7 +50,6 @@ const signupSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = false;
         state.isError = true;
-        console.log("actuon rejec", action);
         state.message = action.error.message;
       });
   },

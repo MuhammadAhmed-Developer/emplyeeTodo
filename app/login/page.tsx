@@ -2,8 +2,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { toast } from "../../utils/toastify";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,7 +26,6 @@ export default function Login() {
       }
       toast.success("Login Successfull");
       router.push("/");
-      console.log("login", responce);
     } catch (error) {
       toast.error("Error While Login");
     } finally {

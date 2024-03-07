@@ -4,9 +4,8 @@ import { NextResponse } from "next/server";
 export const GET = async () => {
   try {
     const response = await prisma.employee.findMany();
-    console.log("response", response);
     return NextResponse.json(
-      { message: "Fetch All Employees" },
+      { message: "Fetch All Employees", data: response },
       { status: 200 }
     );
   } catch (error) {

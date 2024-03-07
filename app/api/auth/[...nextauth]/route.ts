@@ -2,7 +2,6 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcrypt";
 import prisma from "@/lib/prisma";
-// import { connectDB } from "@/src/lib/db";
 
 export const authOptions: any = {
   providers: [
@@ -16,8 +15,6 @@ export const authOptions: any = {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Invalid credentials");
         }
-
-        // await connectDB();
 
         const user = await prisma.user.findUnique({
           where: {
@@ -71,6 +68,6 @@ export const authOptions: any = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
-const handler = NextAuth(authOptions);
+const handler: any = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

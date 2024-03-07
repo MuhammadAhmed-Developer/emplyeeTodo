@@ -27,8 +27,6 @@ export const POST = async (req: any) => {
       },
     });
 
-    console.log("employee", createEmployee);
-
     return NextResponse.json(
       { message: "Employee added successfully" },
       { status: 200 }

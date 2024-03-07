@@ -10,7 +10,6 @@ export const DELETE = async (req: any) => {
           id: parseInt(id),
         },
       });
-      console.log("employee", employee);
     } else {
       return NextResponse.json({ message: "Error while Deleting" });
     }

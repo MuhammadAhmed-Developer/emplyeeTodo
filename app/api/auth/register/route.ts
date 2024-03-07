@@ -27,7 +27,6 @@ export const POST = async (req: any) => {
         password: hashedPassword,
       },
     });
-    console.log("New user created:", responce);
 
     return NextResponse.json(
       { message: "User Created Successfully" },

@@ -1,36 +1,14 @@
-import React from "react";
-
+"use client";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEmployeeData } from "../redux/features/employeeSlice";
 export default function Data() {
-  const EmployData = [
-    {
-      id: 1,
-      name: "Ahmed",
-      phone: "98989999989",
-      designation: "Software Engineer",
-      email: "gamial@gmail.com",
-    },
-    {
-      id: 1,
-      name: "Ahmed",
-      phone: "98989999989",
-      designation: "Software Engineer",
-      email: "gamial@gmail.com",
-    },
-    {
-      id: 1,
-      name: "Ahmed",
-      phone: "98989999989",
-      designation: "Software Engineer",
-      email: "gamial@gmail.com",
-    },
-    {
-      id: 1,
-      name: "Ahmed",
-      phone: "98989999989",
-      designation: "Software Engineer",
-      email: "gamial@gmail.com",
-    },
-  ];
+  const dispatch = useDispatch();
+  const { data, isLoading } = useSelector((state: any) => state.employee);
+
+  useEffect(() => {
+    dispatch(fetchEmployeeData());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col">
@@ -53,7 +31,7 @@ export default function Data() {
                     Phone No
                   </th>
                   <th scope="col" className="px-5 py-4">
-                    designation
+                    Designation
                   </th>
                   <th scope="col" className="px-5 py-4">
                     Email
@@ -61,30 +39,44 @@ export default function Data() {
                 </tr>
               </thead>
               <tbody>
-                {EmployData.map((item, i) => {
-                  return (
-                    <tr
-                      key={i}
-                      className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
-                    >
-                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                        {i + 1}
-                      </td>
-                      <td className="whitespace-nowrap px-5 py-4">
-                        {item.name}
-                      </td>
-                      <td className="whitespace-nowrap px-5 py-4">
-                        {item.phone}
-                      </td>
-                      <td className="whitespace-nowrap px-5 py-4">
-                        {item.designation}
-                      </td>
-                      <td className="whitespace-nowrap px-5 py-4">
-                        {item.email}
-                      </td>
-                    </tr>
-                  );
-                })}
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={5} className="text-center py-8">
+                      Loading...
+                    </td>
+                  </tr>
+                ) : data?.data?.length === 0 ? (
+                  <tr>
+                    <td colSpan={5} className="text-center py-8">
+                      No data found
+                    </td>
+                  </tr>
+                ) : (
+                  <>
+                    {data?.data?.map((item: any, i: number) => (
+                      <tr
+                        key={i}
+                        className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
+                      >
+                        <td className="whitespace-nowrap px-6 py-4 font-medium">
+                          {i + 1}
+                        </td>
+                        <td className="whitespace-nowrap px-5 py-4">
+                          {item.name}
+                        </td>
+                        <td className="whitespace-nowrap px-5 py-4">
+                          {item.phone}
+                        </td>
+                        <td className="whitespace-nowrap px-5 py-4">
+                          {item.designation}
+                        </td>
+                        <td className="whitespace-nowrap px-5 py-4">
+                          {item.email}
+                        </td>
+                      </tr>
+                    ))}
+                  </>
+                )}
               </tbody>
             </table>
           </div>

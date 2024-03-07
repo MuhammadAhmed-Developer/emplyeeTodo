@@ -3,3 +3,11 @@ export interface userData {
   email: string;
   password: string;
 }
+
+export interface EmployeeData {
+  name: string;
+  email: string;
+  phone: string;
+  designation: string;
+  id: number;
+}
