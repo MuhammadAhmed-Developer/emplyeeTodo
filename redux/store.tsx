@@ -5,6 +5,7 @@ import addemployeeReducer from "./features/employeeSlice";
 import useremployeeReducer from "./features/employeeSlice";
 import deleteemployeeReducer from "./features/employeeSlice";
 import updateemployeeReducer from "./features/employeeSlice";
+import searchemployeeReducer from "./features/employeeSlice";
 
 export const Store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const Store = configureStore({
     useremployee: useremployeeReducer,
     deleteemployee: deleteemployeeReducer,
     updateemployee: updateemployeeReducer,
+    searchemployee: searchemployeeReducer,
   },
 });

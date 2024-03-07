@@ -8,7 +8,6 @@ export const fetchUserEmployeeData: any = createAsyncThunk(
   "useremployee/fetchUserEmployeeData",
   async (id) => {
     try {
-      console.log("idsssss", id);
       const response = await fetch(
         `/api/employee/getuseremployee?userId=${id}`,
         {

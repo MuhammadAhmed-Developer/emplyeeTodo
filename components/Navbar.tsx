@@ -34,7 +34,6 @@ export default function Navbar() {
             </Link>
           )}
         </nav>
-        <SearchBar />
         {status == "authenticated" ? (
           <button
             onClick={handleLogout}
