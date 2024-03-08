@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const updateEmployeeData = createAsyncThunk(
+export const updateEmployeeData: any = createAsyncThunk(
   "updateemployee/updateEmployeeData",
   async (employeeData: any) => {
     try {

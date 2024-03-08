@@ -126,7 +126,7 @@ export default function YourEmployee() {
   const updateEmployee = async () => {
     try {
       setLoading(true);
-      const responce = await dispatch(updateEmployeeData(formData));
+      const responce: any = await dispatch(updateEmployeeData(formData));
       if (responce?.payload?.message == "Error while updating employee data") {
         return toast.error("Error while updating employee data");
       }
@@ -145,12 +145,12 @@ export default function YourEmployee() {
 
   return (
     <div className="flex flex-col mt-8">
-      <div className="overflow-x-auto sm:-mx-6 lg:mx-2">
-        <div className="flex justify-between ">
-          <h1 className="py-2 sm:px-6 lg:px-14 font-bold text-primary text-xl">
+      <div className=" sm:-mx-6 lg:mx-2">
+        <div className="flex justify-between  flex-wrap">
+          <h1 className="py-2 px-6 lg:px-14 font-bold ml-4 text-primary text-xl">
             Your Employees {data?.user?.name}
           </h1>
-          <div className="flex items-center">
+          <div className="flex items-center mx-5">
             <button className="bg-red-500 flex items-center rounded-lg text-white text-sm px-2 py-2 mr-2">
               <MdOutlineDeleteOutline />
               Delete
@@ -165,93 +165,97 @@ export default function YourEmployee() {
             </button>
           </div>
         </div>
-        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full text-left text-sm font-light text-surface dark:text-white">
-              <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
-                <tr>
-                  <th scope="col" className="px-5 py-4">
-                    #
-                  </th>
-                  <th scope="col" className="px-5 py-4">
-                    Name
-                  </th>
-                  <th scope="col" className="px-5 py-4">
-                    Phone No
-                  </th>
-                  <th scope="col" className="px-5 py-4">
-                    designation
-                  </th>
-                  <th scope="col" className="px-5 py-4">
-                    Email
-                  </th>
-                  <th scope="col" className="px-5 py-4">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {emploading ? (
+        <div className="overflow-y-auto">
+          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+            <div className="overflow-hidden">
+              <table className="min-w-full text-left text-sm font-light text-surface dark:text-white">
+                <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
                   <tr>
-                    <td colSpan={5} className="text-center py-8">
-                      Loading...
-                    </td>
+                    <th scope="col" className="px-5 py-4">
+                      #
+                    </th>
+                    <th scope="col" className="px-5 py-4">
+                      Name
+                    </th>
+                    <th scope="col" className="px-5 py-4">
+                      Phone No
+                    </th>
+                    <th scope="col" className="px-5 py-4">
+                      designation
+                    </th>
+                    <th scope="col" className="px-5 py-4">
+                      Email
+                    </th>
+                    <th scope="col" className="px-5 py-4">
+                      Action
+                    </th>
                   </tr>
-                ) : employees?.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="text-center py-8">
-                      No data found
-                    </td>
-                  </tr>
-                ) : (
-                  <>
-                    {employees?.map((item, i) => {
-                      return (
-                        <tr
-                          key={i}
-                          className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
-                        >
-                          <td className="whitespace-nowrap px-6 py-4 font-medium">
-                            {i + 1}
-                          </td>
-                          <td className="whitespace-nowrap px-5 py-4">
-                            {item?.name}
-                          </td>
-                          <td className="whitespace-nowrap px-5 py-4">
-                            {item?.phone}
-                          </td>
-                          <td className="whitespace-nowrap px-5 py-4">
-                            {item?.designation}
-                          </td>
-                          <td className="whitespace-nowrap px-5 py-4">
-                            {item?.email}
-                          </td>
-                          <td className="whitespace-nowrap px-5 py-4 flex">
-                            <button onClick={() => handleupdateEmployee(item)}>
-                              <CiEdit className="text-primary text-xl" />
-                            </button>
-                            {delLoading[item.id] ? (
-                              <div
-                                className="ml-3 animate-spin size-4 border-[3px] border-current border-t-transparent text-primary rounded-full "
-                                role="status"
-                                aria-label="loading"
-                              ></div>
-                            ) : (
+                </thead>
+                <tbody>
+                  {emploading ? (
+                    <tr>
+                      <td colSpan={5} className="text-center py-8">
+                        Loading...
+                      </td>
+                    </tr>
+                  ) : employees?.length === 0 ? (
+                    <tr>
+                      <td colSpan={5} className="text-center py-8">
+                        No data found
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {employees?.map((item, i) => {
+                        return (
+                          <tr
+                            key={i}
+                            className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
+                          >
+                            <td className="whitespace-nowrap px-6 py-4 font-medium">
+                              {i + 1}
+                            </td>
+                            <td className="whitespace-nowrap px-5 py-4">
+                              {item?.name}
+                            </td>
+                            <td className="whitespace-nowrap px-5 py-4">
+                              {item?.phone}
+                            </td>
+                            <td className="whitespace-nowrap px-5 py-4">
+                              {item?.designation}
+                            </td>
+                            <td className="whitespace-nowrap px-5 py-4">
+                              {item?.email}
+                            </td>
+                            <td className="whitespace-nowrap px-5 py-4 flex">
                               <button
-                                onClick={() => deleteEmployee(item.id)}
-                                className="text-red-500 ml-2 text-xl"
+                                onClick={() => handleupdateEmployee(item)}
                               >
-                                <MdOutlineDeleteOutline />
+                                <CiEdit className="text-primary text-xl" />
                               </button>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </>
-                )}
-              </tbody>
-            </table>
+                              {delLoading[item.id] ? (
+                                <div
+                                  className="ml-3 animate-spin size-4 border-[3px] border-current border-t-transparent text-primary rounded-full "
+                                  role="status"
+                                  aria-label="loading"
+                                ></div>
+                              ) : (
+                                <button
+                                  onClick={() => deleteEmployee(item.id)}
+                                  className="text-red-500 ml-2 text-xl"
+                                >
+                                  <MdOutlineDeleteOutline />
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
