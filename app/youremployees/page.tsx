@@ -168,8 +168,8 @@ export default function YourEmployee() {
         <div className="overflow-y-auto">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div className="overflow-hidden">
-              <table className="min-w-full text-left text-sm font-light text-surface dark:text-white">
-                <thead className="border-b border-neutral-200 font-medium dark:border-white/10">
+              <table className="min-w-full text-left text-sm font-light text-surface ">
+                <thead className="border-b border-neutral-200 font-medium ">
                   <tr>
                     <th scope="col" className="px-5 py-4">
                       #
@@ -210,7 +210,7 @@ export default function YourEmployee() {
                         return (
                           <tr
                             key={i}
-                            className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600"
+                            className="border-b border-neutral-200 transition duration-300 ease-in-out hover:bg-neutral-100"
                           >
                             <td className="whitespace-nowrap px-6 py-4 font-medium">
                               {i + 1}
